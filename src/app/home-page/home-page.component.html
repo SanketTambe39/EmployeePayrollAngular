@@ -1,0 +1,43 @@
+<div class="main-content">
+<div class="header-content">
+    <div class="emp-detail-text">Employee Details&nbsp;<div class="emp-count"></div>&nbsp;&nbsp;
+
+        <a routerLink="/add" routerLinkActive="router-link-active"  class="add-button" style="position:absolute;right:145px;">
+            <img style="padding-bottom: 5px; 
+                    vertical-align:middle; padding-right: 5px; height: 25px;"
+                src="../assets/icons/add-24px.svg" alt=""/>Add User
+        </a>
+    </div>
+</div>
+    <div class="table-main">
+        <table id="display" class="table">
+            <tr>
+                <th>Id</th>
+                <th></th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Start Date</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let empData of employees">
+                <td>{{empData.employeeId}}</td>
+                <td>
+                    <img class="profile" alt="" src={{empData.profilePic}}>
+                </td>
+                <td>{{empData.name}}</td>
+                <td>{{empData.gender}}</td><br>
+                <td class="dept-label" *ngFor="let dept of empData.departments">
+                    <div>{{dept}}</div>
+                </td>
+                <td>{{empData.salary}}</td>
+                <td>{{empData.startDate}}</td>
+                <td>
+                    <img id="1" (click) = "deleteEmployee(empData.employeeId)" alt="delete" src="../assets/icons/delete-black-18dp.svg">
+                    <img id="1" (click)= "updateEmployee(empData.employeeId)" [routerLink]="['/update']" alt="edit" src="../assets/icons/create-black-18dp.svg">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
