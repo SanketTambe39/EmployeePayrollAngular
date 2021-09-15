@@ -64,9 +64,9 @@
         </div><br>
         <div class="row-content">
             <label class="label text" for="salary">Salary</label>
-            <mat-slider #gridsize (input)="onInputChange($event)" [value]="gridsize" 
+            <mat-slider #gridsize (input)="onInputChange($event)" [value]="employee.salary" 
                         step="5000" min="10000" max="100000"></mat-slider>
-            <output class="gridSizeValue" for="salary">{{gridsize.value}}</output>
+            <output class="gridSizeValue" for="salary">{{employee.salary}}</output>
         </div><br>
         <div class="row-content">
             <label class="label text" for="startDate">Start Date</label>
@@ -138,6 +138,8 @@
 
             <button style="margin-left: 60%;" type="submit" class="btn btn-outline-primary"
                 id="submitButton">Submit</button>
+            <button style="margin-left: 60%;" (click)="onUpdate()" type="submit" class="btn btn-outline-primary" id="submitButton">
+                Update</button>
             <button type="reset" class="btn btn-outline-primary">Reset</button>
 
         </div>

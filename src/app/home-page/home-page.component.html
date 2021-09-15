@@ -21,7 +21,7 @@
                 <th>Start Date</th>
                 <th>Actions</th>
             </tr>
-            <tr *ngFor="let empData of employees">
+            <tr *ngFor="let empData of employees |async">
                 <td>{{empData.employeeId}}</td>
                 <td>
                     <img class="profile" alt="" src={{empData.profilePic}}>

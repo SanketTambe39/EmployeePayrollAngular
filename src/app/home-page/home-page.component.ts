@@ -14,7 +14,7 @@ export class HomePageComponent implements OnInit {
 
   departments = ["HR", "Sales", "Finance", "Engineer", "Other"]
 
-  employees: EmployeeData[];
+  employees: Observable<EmployeeData[]>;
   cnt: number;
 
   constructor(private empservice: EmployeeService, private router: Router) { }
@@ -23,13 +23,10 @@ export class HomePageComponent implements OnInit {
   }
 
   reloadData() {
-    this.empservice.getEmployeeData().subscribe((
-      data: EmployeeData[]) => {
-      this.employees = data;
-      console.log(this.employees);
-    });
+    this.employees = this.empservice.getEmployeeData();
+
 //    this.employees = this.empservice.getEmployeeData();
-    console.log("total emp", typeof (this.employees), "==", this.employees)
+//    console.log("total emp", typeof (this.employees),"==", this.employees)
   }
 
   deleteEmployee(id: number) {

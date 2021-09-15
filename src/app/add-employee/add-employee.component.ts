@@ -17,6 +17,7 @@ export class AddEmployeeComponent implements OnInit {
   year = ""
   employee: EmployeeData = new EmployeeData();
   department: FormGroup;
+  gridsize : any
   constructor(fb: FormBuilder, private router: ActivatedRoute, 
               private route: Router, private empService: EmployeeService) {
     this.department = fb.group({
@@ -32,11 +33,13 @@ export class AddEmployeeComponent implements OnInit {
   id: any
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get('id')
+    console.log(this.id);
+    
     if (this.id != null) {
       this.newEmployee()
       this.empService.getEmployee(this.id)
         .subscribe(empData => {
-          console.log("before update", empData)
+          //console.log("before update", empData)
           this.employee = empData;
           this.department.setValue({
             HR: empData.departments?.includes("HR"),
@@ -45,11 +48,14 @@ export class AddEmployeeComponent implements OnInit {
             Engineer: empData.departments?.includes("Engineer"),
             Other: empData.departments?.includes("Other")
           })
-          this.date = empData.startDate?.split(" ")
+          this.date = empData.startDate?.split("-")
           this.day = this.date[2]
           this.month = this.date[1]
           this.year = this.date[0]
           console.log("date", this.date)
+
+          this.employee.salary = empData.salary;
+          
         })
     }
   }
@@ -72,10 +78,14 @@ export class AddEmployeeComponent implements OnInit {
     console.log("employee", this.employee)
 
     if (this.id == null) {
+      console.log("inside create");
+      
       this.empService.createEmployee(this.employee)
         .subscribe(data => console.log("Data", data))
       this.employee = new EmployeeData();
     } else {
+      console.log("inside update");
+
       this.onUpdate();
     }
     this.gotoList();
@@ -86,11 +96,12 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   onUpdate() {
-    console.log("updated", this.employee)
+    this.employee.gender = "female"
+    console.log("updated befor", this.employee)
     this.empService.updateEmployee(this.id, this.employee)
-      .subscribe(data => console.log("updated", data))
-    this.employee = new EmployeeData();
-    this.gotoList();
+      .subscribe(data => console.log("updated ", data))
+    // this.employee = new EmployeeData();
+    // this.gotoList();
   }
   gotoList() {
     setTimeout(() => {

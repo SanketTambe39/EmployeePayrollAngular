@@ -22,8 +22,8 @@ export class EmployeeService {
   //   return this.http.post(`http://localhost:8082/employeepayroll/create`,EmployeeData)
   // }
 
-  getEmployee(id: number): Observable<any> {
-    return this.http.get(`http://localhost:8082/employeepayroll/employee/${id}`);
+  getEmployee(id: number): Observable<EmployeeData> {
+    return this.http.get<EmployeeData>(`http://localhost:8082/employeepayroll/employee/${id}`);
   }
 
   createEmployee(employee: Object): Observable<Object> {
